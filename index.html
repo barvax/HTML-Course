@@ -6,6 +6,7 @@
     <title>Udemy Course Title</title>
     <style>
         body {
+          
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -30,6 +31,7 @@
             padding: 20px;
         }
         .lessons-container {
+            direction: rtl;
             flex: 1;
             background-color: #f5f5f5;
             padding: 20px;
@@ -62,36 +64,51 @@
 <body>
 
 <header>
-    <h1>Udemy Course Title</h1>
+    <h1>חוג בנית אתרים</h1>
 </header>
 
 <main>
     <div class="video-container">
-        <video controls>
+        <video controls id="controls">
             <source src="" id="videoSource" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
     <div class="lessons-container">
       
-        <div class="lesson-item active" onclick="playVideo()">Lesson 1: Introduction</div>
-        <div class="lesson-item">Lesson 2: Getting Started</div>
-        <div class="lesson-item">Lesson 3: Advanced Techniques</div>
-        <div class="lesson-item">Lesson 4: Final Project</div>
+        <div class="lesson-item active" id="lesson1" onclick="playVideo(0)">איך פותחים תיקיה</div>
+        <div class="lesson-item" id="lesson2" onclick="playVideo(1)">מעלים תיקיה לvs code</div>
+        <div class="lesson-item" id="lesson3" onclick="playVideo(2)">גוררים תיקיה לvs code</div>
+      
+        
     </div>
 </main>
 <script>
-
-
-    let x =("./lesson 1/video/createFolder.mp4")
-const videoSource = document.getElementById('videoSource')
-videoSource.src = x
-
-function playVideo() {
-    videoSource.src = x;
-    console.log(videoSource.src);
-   // videoSource.play();
-}
-</script>
+    const lessons = ["lesson1", "lesson2", "lesson3"];
+    let x = ["./lesson 1/video/createFolder.mp4", "./lesson 1/video/העלאת תיקיה לVSCODE.mp4", "./lesson 1/video/גרירת תיקיה.mp4"];
+    const videoSource = document.getElementById('videoSource');
+    const controls = document.getElementById('controls');
+    videoSource.src = x[0];
+    
+    function playVideo(num) {
+        videoSource.src = x[num];
+        console.log(videoSource.src);
+        setActive(num);
+        controls.load();
+        controls.play();
+    }
+    
+    function setActive(num) {
+        for (let i = 0; i < lessons.length; i++) {
+            const lessonItem = document.getElementById(lessons[i]);
+            if (i === num) {
+                lessonItem.className = 'lesson-item active'; // Add 'active' class to the current lesson item
+            } else {
+                lessonItem.className = 'lesson-item';
+            }
+        }
+    }
+    </script>
+    
 </body>
 </html>
