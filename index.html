@@ -6,14 +6,10 @@
     <title>Udemy Course Title</title>
     <style>
         body {
-          
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-            height: 100vh;
+             /* Right-to-left text direction */
         }
         header {
             background-color: #007791;
@@ -22,20 +18,16 @@
             text-align: center;
         }
         main {
-            display: flex;
-            flex-direction: row;
-            flex-grow: 1;
-        }
-        .video-container {
-            flex: 4;
             padding: 20px;
         }
+        .video-container {
+            margin-bottom: 20px;
+        }
         .lessons-container {
-            direction: rtl;
-            flex: 1;
             background-color: #f5f5f5;
             padding: 20px;
             box-sizing: border-box;
+            direction: rtl;
         }
         .lesson-item {
             margin-bottom: 10px;
@@ -54,61 +46,74 @@
             color: #007791;
         }
         video {
-            width: 100%;
-            height: auto;
+            width: 100%; /* Ensure video fills its container */
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Media query for tablet-sized screens and above */
+        @media screen and (min-width: 768px) {
+            main {
+                display: flex;
+                flex-direction: row;
+                align-items: stretch;
+            }
+            .lessons-container {
+                flex: 1;
+            }
+            .video-container {
+                flex: 4;
+                margin-right: 20px; /* Add some spacing between video and lessons */
+            }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>חוג בנית אתרים</h1>
+    <h1>קורס בניית אתרים</h1>
 </header>
 
 <main>
     <div class="video-container">
-        <video controls id="controls">
-            <source src="" id="videoSource" type="video/mp4">
+        <video controls id="videoSource">
+            <!-- Your source elements here -->
             Your browser does not support the video tag.
         </video>
     </div>
     <div class="lessons-container">
-      
-        <div class="lesson-item active" id="lesson1" onclick="playVideo(0)">איך פותחים תיקיה</div>
-        <div class="lesson-item" id="lesson2" onclick="playVideo(1)">מעלים תיקיה לvs code</div>
-        <div class="lesson-item" id="lesson3" onclick="playVideo(2)">גוררים תיקיה לvs code</div>
-      
-        
+        <div class="lesson-item active" onclick="playVideo(0)">איך יוצרים תיקיה במחשב</div>
+        <div class="lesson-item" onclick="playVideo(1)">איך פותחים תיקיה ב vs code</div>
+        <div class="lesson-item" onclick="playVideo(2)">איך גוררים תיקיה ל vs code</div>
+        <!-- Add more lesson items as needed -->
     </div>
 </main>
+
 <script>
-    const lessons = ["lesson1", "lesson2", "lesson3"];
-    let x = ["./lesson 1/video/createFolder.mp4", "./lesson 1/video/העלאת תיקיה לVSCODE.mp4", "./lesson 1/video/גרירת תיקיה.mp4"];
-    const videoSource = document.getElementById('videoSource');
-    const controls = document.getElementById('controls');
-    videoSource.src = x[0];
-    
-    function playVideo(num) {
-        videoSource.src = x[num];
-        console.log(videoSource.src);
-        setActive(num);
-        controls.load();
-        controls.play();
-    }
-    
-    function setActive(num) {
-        for (let i = 0; i < lessons.length; i++) {
-            const lessonItem = document.getElementById(lessons[i]);
-            if (i === num) {
-                lessonItem.className = 'lesson-item active'; // Add 'active' class to the current lesson item
-            } else {
-                lessonItem.className = 'lesson-item';
-            }
+const lessons = ["lesson1", "lesson2", "lesson3"];
+let x = ["./lesson 1/video/createFolder.mp4", "./lesson 1/video/העלאת תיקיה לVSCODE.mp4", "./lesson 1/video/גרירת תיקיה.mp4"];
+const videoSource = document.getElementById('videoSource');
+const controls = document.getElementById('controls');
+videoSource.src = x[0];
+
+function playVideo(num) {
+    videoSource.src = x[num];
+    setActive(num);
+    controls.load();
+    controls.play();
+}
+
+function setActive(num) {
+    for (let i = 0; i < lessons.length; i++) {
+        const lessonItem = document.getElementById(lessons[i]);
+        if (i === num) {
+            lessonItem.classList.add('active'); // Add 'active' class to the current lesson item
+        } else {
+            lessonItem.classList.remove('active'); // Remove 'active' class from other lesson items
         }
     }
-    </script>
-    
+}
+</script>
+
 </body>
 </html>
