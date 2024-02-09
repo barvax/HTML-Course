@@ -46,6 +46,11 @@
             font-weight: bold;
             color: #007791;
         }
+        .sub-lesson {
+            padding-right: 20px;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
         video {
             width: 100%; /* Ensure video fills its container */
             border-radius: 5px;
@@ -83,25 +88,47 @@
         </video>
     </div>
     <div class="lessons-container">
-        <div class="lesson-item active" id="lesson1" onclick="playVideo(0)">איך יוצרים תיקיה במחשב</div>
-        <div class="lesson-item" id="lesson2" onclick="playVideo(1)">איך פותחים תיקיה ב vs code</div>
-        <div class="lesson-item" id="lesson3" onclick="playVideo(2)">איך גוררים תיקיה ל vs code</div>
-        <!-- Add more lesson items as needed -->
+        <div class="lesson-item active" id="lesson1" onclick="toggleSubLesson('subLesson1',0)">פעולות בסיסיות במחשב</div>
+        <div class="sub-lesson" id="subLesson1" style="display: none;">
+            <div class="lesson-item" onclick="playVideo(0)">יצירת תיקיה על המחשב</div>
+            <div class="lesson-item" onclick="playVideo(1)">פותחים תיקיה ב vs code</div>
+            <div class="lesson-item" onclick="playVideo(2)">גוררים תיקיה ל vs code</div>
+            <div class="lesson-item" onclick="playVideo(3)">הורדת קובץ למחשב - חלק  ראשון</div>
+            <div class="lesson-item" onclick="playVideo(4)">הורדת קובץ למחשב - חלק שני</div>
+            <div class="lesson-item" onclick="playVideo(5)">שינוי שם של קובץ - חלק ראשון</div>
+            <div class="lesson-item" onclick="playVideo(6)">שינוי שם של קובץ - חלק שני</div>
+        </div>
+        <div class="lesson-item" id="lesson2" onclick="toggleSubLesson('subLesson2',1)">שיעור ראשון</div>
+        <div class="sub-lesson" id="subLesson2" style="display: none;">
+            <div class="lesson-item" onclick="playVideo(0)">פותחים קובץ index.html</div>
+            <div class="lesson-item" onclick="playVideo(1)">תגיות בסיסיות</div>
+            <div class="lesson-item" onclick="playVideo(2)">תגית תמונה</div>
+        </div>
+        <div class="lesson-item" id="lesson3" onclick="toggleSubLesson('subLesson3',2)">שיעור שני</div>
+        <div class="sub-lesson" id="subLesson3" style="display: none;">
+            <div class="lesson-item" onclick="playVideo(0)">שינוי כותרת ואיקון של העמוד</div>
+            <div class="lesson-item" onclick="playVideo(1)">אתר עם איקונים</div>
+            <div class="lesson-item" onclick="playVideo(2)">עיצוב- שינוי גודל תמונה</div>
+        </div>
     </div>
+ 
 </main>
-
+<video src="lesson2/style img width.mp4"></video>
 <script>
 const lessons = ["lesson1", "lesson2", "lesson3"];
-let x = ["./lesson 1/video/createFolder.mp4", "./lesson 1/video/העלאת תיקיה לVSCODE.mp4", "./lesson 1/video/גרירת תיקיה.mp4"];
+let x = [
+    ["./lesson 1/video/createFolder.mp4","lesson 1/video/העלאת תיקיה לVSCODE.mp4","lesson 1/video/גרירת תיקיה.mp4","lesson 1/video/1שמירת תמונה.mp4","lesson 1/video/שמירת תמונה 2.mp4", "lesson 1/video/שינוי שם קובץ 1.mp4", "lesson 1/video/שינוי שם קובץ 2.mp4",""],
+    ["lesson 1/video/lesson1-open index file.mp4", "lesson 1/video/lesson 1 basic tags.mp4", "lesson 1/video/lesson 1 img src.mp4"],
+    ["lesson2/change title and favicon.mp4", "lesson2/google fonts.mp4", "lesson2/style img width.mp4"]
+];
 const videoSource = document.getElementById('videoSource');
-const controls = document.getElementById('controls');
-videoSource.src = x[0];
+
+videoSource.src = x[0][0];
 
 function playVideo(num) {
-    videoSource.src = x[num];
-    setActive(num);
-    controls.load();
-    controls.play();
+    videoSource.src = x[currentLesson][num];
+  //  setActive(num);
+    videoSource.play();
 }
 
 function setActive(num) {
@@ -113,6 +140,15 @@ function setActive(num) {
             lessonItem.classList.remove('active'); // Remove 'active' class from other lesson items
         }
     }
+}
+
+let currentLesson = 0;
+
+function toggleSubLesson(subLessonId,index) {
+    const subLesson = document.getElementById(subLessonId);
+    currentLesson=index
+    setActive(index)
+    subLesson.style.display = subLesson.style.display === 'none' ? 'block' : 'none';
 }
 </script>
 
